@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Detektif Perubahan: Fisika vs Kimia</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap">
+<style>
+:root{--bg:#eaf4fb;--card:#fff;--ink:#13263b;--mute:#4f647a;--fis:#2f7de1;--fisbg:#dbeafd;--kim:#e0452e;--kimbg:#fde2dc;--acc:#b6e03a;--line:#c9dbea;--ok:#1f9d55;--bad:#d62839;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1b2a;--card:#172a3f;--ink:#e9f2fb;--mute:#9db3c8;--fisbg:#1c3a62;--kimbg:#4a2420;--line:#2b4560}}
+:root[data-theme="dark"]{--bg:#0e1b2a;--card:#172a3f;--ink:#e9f2fb;--mute:#9db3c8;--fisbg:#1c3a62;--kimbg:#4a2420;--line:#2b4560}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 'Nunito',system-ui,sans-serif}
+h1,h2,h3{font-family:'Baloo 2',system-ui,sans-serif;line-height:1.15;margin:0}
+main{max-width:900px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+h1{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800}
+h1 .f{color:var(--fis)}h1 .k{color:var(--kim)}
+.xp{background:var(--ink);color:var(--bg);border-radius:99px;padding:6px 16px;font-weight:700}
+nav{display:flex;gap:6px;margin-bottom:16px;border-bottom:3px solid var(--line)}
+nav button{flex:1;font:700 1rem 'Nunito',sans-serif;padding:10px 6px;border:0;background:none;color:var(--mute);cursor:pointer;border-bottom:4px solid transparent;margin-bottom:-3px}
+nav button[aria-selected=true]{color:var(--ink);border-color:var(--kim)}
+button:focus-visible{outline:3px solid var(--fis);outline-offset:2px}
+section[hidden]{display:none}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px;margin-bottom:16px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:620px){.cols{grid-template-columns:1fr}}
+.fis{background:var(--fisbg);border-color:var(--fis)}.kim{background:var(--kimbg);border-color:var(--kim)}
+.fis h3{color:var(--fis)}.kim h3{color:var(--kim)}
+ul{padding-left:20px;margin:8px 0 0}li{margin:4px 0}
+.btn{font:800 1rem 'Baloo 2',sans-serif;border:0;border-radius:12px;padding:10px 18px;background:var(--ink);color:var(--bg);cursor:pointer}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.k{background:var(--kim);color:#fff}.btn.f{background:var(--fis);color:#fff}
+.stage{font-size:4rem;text-align:center;min-height:90px;transition:transform .3s}
+.msg{min-height:3.2em;text-align:center;font-weight:700}
+input[type=range]{width:100%;accent-color:var(--fis)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:8px 14px;font:700 .95rem 'Nunito',sans-serif;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--acc);border-color:var(--ink);color:#13263b}
+.beaker{position:relative;width:140px;height:150px;margin:8px auto;border:4px solid var(--ink);border-top:0;border-radius:0 0 28px 28px;overflow:hidden}
+.liq{position:absolute;left:0;right:0;bottom:0;height:10%;background:transparent;transition:all .6s}
+.bub{position:absolute;bottom:0;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.8);animation:up 1.4s ease-in infinite}
+@keyframes up{to{transform:translateY(-140px);opacity:0}}
+.tag{display:inline-block;border-radius:8px;padding:2px 10px;font-weight:800;color:#fff}
+.tag.F{background:var(--fis)}.tag.K{background:var(--kim)}
+.bar{height:10px;background:var(--line);border-radius:9px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--kim);width:100%}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.big{font-size:1.15rem;padding:16px}
+.fb{margin-top:12px;padding:12px;border-radius:12px;font-weight:700}
+.fb.ok{background:#d6f5e1;color:#0b5a2e}.fb.no{background:#fbd9dd;color:#7d0f1c}
+.stats{display:flex;justify-content:space-between;font-weight:800}
+.note{color:var(--mute);font-size:.92rem}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1><span class="f">Perubahan Fisika</span> vs <span class="k">Kimia</span></h1>
+  <div class="xp" aria-live="polite">⭐ <span id="xp">0</span> poin</div>
+</header>
+
+<nav role="tablist">
+  <button role="tab" aria-selected="true" data-t="belajar">Pelajari</button>
+  <button role="tab" aria-selected="false" data-t="lab">Laboratorium</button>
+  <button role="tab" aria-selected="false" data-t="kuis">Tantangan</button>
+</nav>
+
+<!-- PELAJARI -->
+<section id="belajar">
+  <div class="cols">
+    <div class="card fis"><h3>Perubahan fisika</h3>
+      <p>Zatnya tetap sama. Hanya bentuk, ukuran, atau wujudnya yang berubah.</p>
+      <ul><li>Biasanya bisa dikembalikan</li><li>Tidak terbentuk zat baru</li><li>Contoh: es mencair, gula larut</li></ul></div>
+    <div class="card kim"><h3>Perubahan kimia</h3>
+      <p>Terbentuk zat baru dengan sifat yang berbeda dari zat awal.</p>
+      <ul><li>Sulit atau tidak bisa dikembalikan</li><li>Ada tanda-tanda khusus (lihat di bawah)</li><li>Contoh: kertas terbakar, besi berkarat</li></ul></div>
+  </div>
+
+  <div class="card"><h3>Lima tanda perubahan kimia</h3>
+    <p class="note">Ketuk tanda untuk melihat contohnya.</p>
+    <div class="chips" id="tandaChips"></div>
+    <p id="tandaInfo" class="msg" style="text-align:left">Pilih salah satu tanda di atas.</p></div>
+
+  <div class="card"><h3>Coba sendiri: Es batu</h3>
+    <div class="stage" id="esStage">💧</div>
+    <input type="range" id="suhu" min="-10" max="120" value="25" aria-label="Suhu air">
+    <div class="msg" id="esMsg"></div></div>
+
+  <div class="card"><h3>Coba sendiri: Kertas</h3>
+    <div class="stage" id="kStage">📄</div>
+    <div style="text-align:center;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button class="btn k" id="bakar">🔥 Bakar kertas</button>
+      <button class="btn" id="balik">↩ Kembalikan jadi kertas</button></div>
+    <div class="msg" id="kMsg"></div></div>
+</section>
+
+<!-- LAB -->
+<section id="lab" hidden>
+  <div class="card"><h3>Laboratorium campur bahan</h3>
+    <p>Pilih <b>2 bahan</b>, campurkan, lalu amati. Temukan semua percobaan yang menghasilkan zat baru! Penemuan baru = +5 poin.</p>
+    <div class="chips" id="bahan"></div>
+    <div class="beaker"><div class="liq" id="liq"></div></div>
+    <div style="text-align:center"><button class="btn k" id="campur" disabled>Campurkan</button>
+      <button class="btn" id="reset">Kosongkan</button></div>
+    <div class="msg" id="hasil" aria-live="polite">Pilih dua bahan dulu.</div>
+    <div class="stats"><span>Percobaan unik: <span id="nUji">0</span></span><span>Perubahan kimia ditemukan: <span id="nKim">0</span>/4</span></div>
+  </div>
+</section>
+
+<!-- KUIS -->
+<section id="kuis" hidden>
+  <div class="card" id="kuisBox"></div>
+</section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+let xp=0;const addXp=n=>{xp+=n;$('#xp').textContent=xp};
+
+/* Tab */
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  ['belajar','lab','kuis'].forEach(id=>$('#'+id).hidden=id!==b.dataset.t);
+});
+
+/* Tanda kimia */
+const tanda={'Gas / gelembung':'Tablet effervescent dalam air menghasilkan gelembung gas.','Perubahan warna':'Besi menjadi cokelat kemerahan karena berkarat, apel yang dikupas menjadi cokelat.','Bau baru':'Susu basi dan telur busuk mengeluarkan bau yang tidak ada sebelumnya.','Endapan':'Air kapur yang ditiup melalui sedotan menjadi keruh karena terbentuk padatan baru.','Panas / cahaya':'Kayu terbakar melepaskan panas dan cahaya, dan menyisakan abu.'};
+Object.keys(tanda).forEach(k=>{const c=document.createElement('button');c.className='chip';c.textContent=k;c.setAttribute('aria-pressed','false');
+  c.onclick=()=>{document.querySelectorAll('#tandaChips .chip').forEach(x=>x.setAttribute('aria-pressed',x===c));$('#tandaInfo').textContent=tanda[k]};
+  $('#tandaChips').appendChild(c)});
+
+/* Es batu */
+function es(){const t=+$('#suhu').value;let e,m;
+  if(t<=0){e='🧊';m=t+'°C: Padat (es). Masih H₂O. Perubahan fisika.'}
+  else if(t<100){e='💧';m=t+'°C: Cair (air). Zatnya sama, hanya wujud berubah. Perubahan fisika.'}
+  else{e='♨️';m=t+'°C: Gas (uap air). Tetap H₂O dan bisa mengembun lagi. Perubahan fisika.'}
+  $('#esStage').textContent=e;$('#esMsg').textContent=m}
+$('#suhu').oninput=es;es();
+
+/* Kertas */
+let abu=false;
+$('#bakar').onclick=()=>{abu=true;$('#kStage').textContent='🔥';
+  setTimeout(()=>{$('#kStage').textContent='⚫💨';$('#kMsg').textContent='Terbentuk abu dan asap, zat baru dengan sifat berbeda. Perubahan kimia!'},900)};
+$('#balik').onclick=()=>{if(abu){$('#kMsg').textContent='Gagal! Abu tidak bisa kembali menjadi kertas. Ciri perubahan kimia: sulit dikembalikan.'}
+  else{$('#kMsg').textContent='Kertasnya belum dibakar. Coba bakar dulu.'}};
+
+/* Lab */
+const B={soda:'🥄 Soda kue',cuka:'🍶 Cuka',gula:'🍬 Gula',garam:'🧂 Garam',air:'💧 Air',minyak:'🛢️ Minyak',paku:'🔩 Paku besi'};
+const R={ 'cuka+soda':{k:1,c:'#f3e9a8',g:1,t:'Berbuih hebat! Terbentuk gas karbon dioksida. Tanda: gas. Perubahan kimia.'},
+ 'air+paku':{k:1,c:'#b9d9ee',g:0,t:'Setelah beberapa hari paku berkarat dan warnanya menjadi cokelat. Tanda: warna. Perubahan kimia.'},
+ 'cuka+paku':{k:1,c:'#ead9b0',g:1,t:'Muncul gelembung kecil di permukaan paku dan logamnya mulai terkikis. Perubahan kimia.'},
+ 'air+soda':{k:0,c:'#d6ecf7',t:'Soda kue larut sebagian. Zat tidak berubah. Perubahan fisika.'},
+ 'air+gula':{k:0,c:'#d6ecf7',t:'Gula larut dan terasa manis. Bisa diuapkan lagi. Perubahan fisika.'},
+ 'air+garam':{k:0,c:'#d6ecf7',t:'Garam larut. Jika airnya diuapkan, garam muncul kembali. Perubahan fisika.'},
+ 'air+minyak':{k:0,c:'#f1d56a',t:'Minyak tidak larut dan mengambang di atas air. Perubahan fisika.'}};
+const found=new Set(),foundK=new Set();let sel=[];
+Object.keys(B).forEach(k=>{const c=document.createElement('button');c.className='chip';c.textContent=B[k];c.dataset.k=k;c.setAttribute('aria-pressed','false');
+  c.onclick=()=>{if(sel.includes(k))sel=sel.filter(x=>x!==k);else if(sel.length<2)sel.push(k);sync()};$('#bahan').appendChild(c)});
+function sync(){document.querySelectorAll('#bahan .chip').forEach(c=>c.setAttribute('aria-pressed',sel.includes(c.dataset.k)));$('#campur').disabled=sel.length<2}
+$('#reset').onclick=()=>{sel=[];sync();$('#liq').style.cssText='';$('#liq').innerHTML='';$('#hasil').textContent='Pilih dua bahan dulu.'};
+$('#campur').onclick=()=>{const key=[...sel].sort().join('+');
+  const r=R[key]||{k:0,c:'#d6ecf7',t:'Hanya bercampur, tidak ada zat baru yang terbentuk. Perubahan fisika.'};
+  const L=$('#liq');L.innerHTML='';L.style.height='70%';L.style.background=r.c;
+  if(r.g)for(let i=0;i<14;i++){const s=document.createElement('span');s.className='bub';s.style.left=(Math.random()*120)+'px';s.style.animationDelay=(Math.random()*1.4)+'s';L.appendChild(s)}
+  $('#hasil').innerHTML='<span class="tag '+(r.k?'K':'F')+'">'+(r.k?'Kimia':'Fisika')+'</span> '+r.t;
+  if(!found.has(key)){found.add(key);addXp(5);if(r.k)foundK.add(key)}
+  $('#nUji').textContent=found.size;$('#nKim').textContent=foundK.size};
+
+/* Kuis */
+const Q=[
+['Es batu mencair di dalam gelas',0,'Wujud berubah, zatnya tetap H₂O.'],
+['Kertas dibakar menjadi abu',1,'Panas / cahaya','Terbentuk abu dan asap, zat baru.'],
+['Paku besi berubah menjadi karat',1,'Perubahan warna','Karat adalah zat baru berwarna cokelat kemerahan.'],
+['Kapur barus lama-lama menghilang (menyublim)',0,'Hanya berubah dari padat ke gas.'],
+['Susu dibiarkan hingga basi',1,'Bau baru','Terbentuk asam dengan bau menyengat.'],
+['Kain digunting menjadi potongan kecil',0,'Hanya ukuran dan bentuk yang berubah.'],
+['Telur dibiarkan hingga busuk',1,'Bau baru','Mikroorganisme mengubahnya menjadi zat berbau.'],
+['Air direbus sampai menguap',0,'Wujud berubah, uapnya tetap H₂O.'],
+['Tablet vitamin dilarutkan dan berbuih',1,'Gas / gelembung','Reaksi menghasilkan gas karbon dioksida.'],
+['Kembang api meledak di langit',1,'Panas / cahaya','Reaksi melepaskan cahaya dan panas.'],
+['Gula larut dalam teh hangat',0,'Gula hanya tersebar, rasa manis tetap.'],
+['Apel yang dikupas berubah cokelat',1,'Perubahan warna','Reaksi dengan oksigen membentuk zat baru.'],
+['Singkong diolah menjadi tape',1,'Bau baru','Fermentasi menghasilkan zat baru berbau asam manis.'],
+['Kaca dipecahkan jadi serpihan',0,'Hanya bentuk yang berubah.']];
+const tk=Object.keys(tanda);
+let st;
+function mulai(){const o=[...Q].sort(()=>Math.random()-.5).slice(0,10);st={q:o,i:0,hp:3,poin:0,streak:0,t:20,tm:null};tampil()}
+function tampil(){
+  clearInterval(st.tm);
+  if(st.i>=st.q.length||st.hp<=0)return akhir();
+  const q=st.q[st.i];st.t=20;st.done=false;
+  $('#kuisBox').innerHTML=`<div class="stats"><span>Kasus ${st.i+1}/${st.q.length}</span><span>${'❤️'.repeat(st.hp)}${'🖤'.repeat(3-st.hp)}</span><span>🔥 Streak ${st.streak}</span></div>
+  <div class="bar"><i id="tb"></i></div>
+  <h2 style="margin:12px 0">${q[0]}</h2><p>Termasuk perubahan apa?</p>
+  <div class="opts"><button class="btn f big" data-a="0">Fisika</button><button class="btn k big" data-a="1">Kimia</button></div><div id="fb"></div>`;
+  document.querySelectorAll('.big').forEach(b=>b.onclick=()=>jawab(+b.dataset.a));
+  st.tm=setInterval(()=>{st.t--;const b=$('#tb');if(b)b.style.width=(st.t/20*100)+'%';if(st.t<=0){clearInterval(st.tm);salah('Waktu habis!')}},1000)}
+function jawab(a){if(st.done)return;clearInterval(st.tm);const q=st.q[st.i];
+  if(a!==q[1])return salah('Kurang tepat.');
+  if(!q[1]){benar(10+Math.ceil(st.t/4),'Betul! Perubahan fisika. '+q[2]);return}
+  // tahap bukti
+  st.done=true;
+  $('#fb').innerHTML='<p><b>Betul, ini perubahan kimia!</b> Tantangan bonus: apa tanda utamanya?</p><div class="chips" id="bk"></div>';
+  tk.forEach(t=>{const c=document.createElement('button');c.className='chip';c.textContent=t;
+    c.onclick=()=>{document.querySelectorAll('#bk .chip').forEach(x=>x.disabled=true);
+      const ok=t===q[2];st.poin+=15;st.streak++;addXp(15);
+      if(ok){st.poin+=15;addXp(15)}
+      $('#fb').innerHTML+=`<div class="fb ${ok?'ok':'no'}">${ok?'Tepat! +15 bonus. ':'Tanda utamanya: '+q[2]+'. '}${q[3]}</div><p><button class="btn" id="nx">Lanjut</button></p>`;
+      $('#nx').onclick=()=>{st.i++;tampil()}};$('#bk').appendChild(c)})}
+function benar(p,t){st.done=true;st.poin+=p;st.streak++;addXp(p);
+  $('#fb').innerHTML=`<div class="fb ok">${t} (+${p})</div><p><button class="btn" id="nx">Lanjut</button></p>`;$('#nx').onclick=()=>{st.i++;tampil()}}
+function salah(t){if(st.done)return;st.done=true;st.hp--;st.streak=0;const q=st.q[st.i];
+  $('#fb').innerHTML=`<div class="fb no">${t} Jawaban: <b>${q[1]?'Kimia':'Fisika'}</b>. ${q[1]?q[3]:q[2]}</div><p><button class="btn" id="nx">Lanjut</button></p>`;
+  document.querySelectorAll('.big').forEach(b=>b.disabled=true);$('#nx').onclick=()=>{st.i++;tampil()}}
+function akhir(){const h=st.hp>0&&st.i>=st.q.length;const r=st.poin>=220?'🏆 Detektif Master':st.poin>=140?'🕵️ Detektif Handal':'🔍 Detektif Pemula';
+  $('#kuisBox').innerHTML=`<h2>${h?'Kasus selesai!':'Nyawa habis!'}</h2><p class="msg" style="font-size:1.4rem">${r}</p><p style="text-align:center">Poin kuis: <b>${st.poin}</b></p>
+  <p class="note" style="text-align:center">Baca lagi bagian Pelajari untuk memperkuat tanda-tanda perubahan kimia, lalu coba lagi.</p><p style="text-align:center"><button class="btn k" id="ulang">Main lagi</button></p>`;
+  $('#ulang').onclick=mulai}
+$('#kuisBox').innerHTML='<h2>Tantangan Detektif</h2><p>10 kasus acak, 3 nyawa, dan 20 detik tiap kasus. Jawab Fisika atau Kimia. Untuk perubahan kimia, ada soal bonus mencari tanda utamanya. Jawab cepat untuk poin lebih besar!</p><p><button class="btn k" id="go">Mulai tantangan</button></p>';
+$('#go').onclick=mulai;
+</script>
+</body>
+</html>
