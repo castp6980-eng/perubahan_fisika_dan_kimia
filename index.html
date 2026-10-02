@@ -54,6 +54,53 @@ input[type=range]{width:100%;accent-color:var(--fis)}
 .stats{display:flex;justify-content:space-between;font-weight:800}
 .note{color:var(--mute);font-size:.92rem}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== Tema warna-warni & segar ===== */
+:root{--edge:#17324d;--sh:#17324d;--teal:#12b5a2;--pur:#8e5cf7;--ora:#ff8a1f;--acc:#ffd93d;--line:#bcd7e8;--ink:#17324d;--fis:#1e88e5;--kim:#ff5a3c;--fisbg:#d3ecff;--kimbg:#ffe1d4}
+body{background:linear-gradient(160deg,#d4f5ec 0%,#e6eeff 45%,#fff0cf 100%) fixed}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--edge:#8fe3d4;--sh:#000;--ink:#eef6ff;--card:#1b2f4a;--fisbg:#17406f;--kimbg:#58281f;--line:#34506d;--mute:#a9bfd3}
+:root:not([data-theme="light"]) body{background:linear-gradient(160deg,#0c2b2f 0%,#1b1a45 50%,#35202c 100%) fixed}
+:root:not([data-theme="light"]) .xp,:root:not([data-theme="light"]) .chip[aria-pressed=true]{color:#17324d}}
+:root[data-theme="dark"]{--edge:#8fe3d4;--sh:#000;--ink:#eef6ff;--card:#1b2f4a;--fisbg:#17406f;--kimbg:#58281f;--line:#34506d;--mute:#a9bfd3}
+:root[data-theme="dark"] body{background:linear-gradient(160deg,#0c2b2f 0%,#1b1a45 50%,#35202c 100%) fixed}
+h1{letter-spacing:-.5px;text-shadow:2px 2px 0 rgba(255,255,255,.7)}
+.xp{background:var(--acc);color:#17324d;border:3px solid var(--edge);box-shadow:3px 3px 0 var(--sh);font-family:'Baloo 2',sans-serif;font-size:1.05rem}
+nav{border:0;gap:8px;flex-wrap:wrap}
+nav button{border:3px solid var(--edge);border-radius:99px;background:var(--card);color:var(--ink);margin:0;box-shadow:3px 3px 0 var(--sh);font-family:'Baloo 2',sans-serif;font-size:1.05rem}
+nav button[aria-selected=true]{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--sh);color:#fff}
+nav button[data-t=belajar][aria-selected=true]{background:var(--teal);border-color:var(--edge)}
+nav button[data-t=lab][aria-selected=true]{background:var(--pur);border-color:var(--edge)}
+nav button[data-t=kuis][aria-selected=true]{background:var(--ora);border-color:var(--edge)}
+.card{border:3px solid var(--edge);border-radius:22px;box-shadow:5px 5px 0 var(--sh)}
+.card.fis{background:var(--fisbg);border-color:var(--edge);border-top:12px solid var(--fis)}
+.card.kim{background:var(--kimbg);border-color:var(--edge);border-top:12px solid var(--kim)}
+#belajar>.card:nth-child(2){border-top:12px solid var(--ora)}
+#belajar>.card:nth-child(3){border-top:12px solid var(--teal)}
+#belajar>.card:nth-child(4){border-top:12px solid var(--pink,#ff6fa8)}
+#lab>.card{border-top:12px solid var(--pur)}
+#kuis>.card{border-top:12px solid var(--ora)}
+.fis h3{font-size:1.4rem}.kim h3{font-size:1.4rem}
+li::marker{color:var(--kim);font-weight:800}
+.fis li::marker{color:var(--fis)}
+.btn{background:var(--pur);color:#fff;border:3px solid var(--edge);box-shadow:3px 3px 0 var(--sh)}
+.btn:active:not(:disabled){transform:translate(3px,3px);box-shadow:none}
+.btn.k{background:var(--kim)}.btn.f{background:var(--fis)}
+.chip{border:3px solid var(--edge);box-shadow:2px 2px 0 var(--sh);color:#17324d;background:#fff}
+#tandaChips .chip:nth-child(1){background:#bff0e6}#tandaChips .chip:nth-child(2){background:#ffd3e4}
+#tandaChips .chip:nth-child(3){background:#e2d6ff}#tandaChips .chip:nth-child(4){background:#cfe6ff}#tandaChips .chip:nth-child(5){background:#ffe2a8}
+#bahan .chip:nth-child(1){background:#fff3b0}#bahan .chip:nth-child(2){background:#ffe2a8}#bahan .chip:nth-child(3){background:#ffd3e4}
+#bahan .chip:nth-child(4){background:#e2d6ff}#bahan .chip:nth-child(5){background:#cfe6ff}#bahan .chip:nth-child(6){background:#fff0b8}#bahan .chip:nth-child(7){background:#d6dde6}
+.chip[aria-pressed=true],#bahan .chip[aria-pressed=true],#tandaChips .chip[aria-pressed=true]{background:var(--teal);color:#fff;transform:translate(2px,2px);box-shadow:none}
+.stage{width:128px;height:128px;min-height:0;margin:6px auto 12px;border-radius:50%;border:3px solid var(--edge);display:flex;align-items:center;justify-content:center;font-size:3.4rem;background:var(--fisbg);box-shadow:4px 4px 0 var(--sh)}
+#kStage{background:var(--kimbg)}
+input[type=range]{accent-color:var(--teal);height:28px}
+.beaker{border-color:var(--edge);background:rgba(255,255,255,.45);width:150px;height:160px}
+.bar{height:16px;border:2px solid var(--edge);background:var(--card)}
+.bar i{background:linear-gradient(90deg,var(--teal),var(--acc),var(--kim));transition:width 1s linear}
+.tag{border:2px solid var(--edge)}
+.fb{border:3px solid var(--edge)}
+.opts .big{font-size:1.5rem;padding:18px}
+.stats{font-family:'Baloo 2',sans-serif;font-size:1.05rem}
+#hasil{background:var(--card);border:3px dashed var(--edge);border-radius:14px;padding:10px;margin:12px 0}
 </style>
 </head>
 <body>
@@ -101,12 +148,13 @@ input[type=range]{width:100%;accent-color:var(--fis)}
 <!-- LAB -->
 <section id="lab" hidden>
   <div class="card"><h3>Laboratorium campur bahan</h3>
-    <p>Pilih <b>2 bahan</b>, campurkan, lalu amati. Temukan semua percobaan yang menghasilkan zat baru! Penemuan baru = +5 poin.</p>
+    <p>Pilih <b>2 bahan</b>, campurkan, lalu amati. Temukan semua percobaan yang menghasilkan zat baru! Penemuan baru = +5 poin. Setelah mencampur, jawab 2 pertanyaan tentang percobaanmu, +5 poin untuk tiap jawaban benar!</p>
     <div class="chips" id="bahan"></div>
     <div class="beaker"><div class="liq" id="liq"></div></div>
     <div style="text-align:center"><button class="btn k" id="campur" disabled>Campurkan</button>
       <button class="btn" id="reset">Kosongkan</button></div>
     <div class="msg" id="hasil" aria-live="polite">Pilih dua bahan dulu.</div>
+    <div id="soal" aria-live="polite"></div>
     <div class="stats"><span>Percobaan unik: <span id="nUji">0</span></span><span>Perubahan kimia ditemukan: <span id="nKim">0</span>/4</span></div>
   </div>
 </section>
@@ -161,14 +209,45 @@ const found=new Set(),foundK=new Set();let sel=[];
 Object.keys(B).forEach(k=>{const c=document.createElement('button');c.className='chip';c.textContent=B[k];c.dataset.k=k;c.setAttribute('aria-pressed','false');
   c.onclick=()=>{if(sel.includes(k))sel=sel.filter(x=>x!==k);else if(sel.length<2)sel.push(k);sync()};$('#bahan').appendChild(c)});
 function sync(){document.querySelectorAll('#bahan .chip').forEach(c=>c.setAttribute('aria-pressed',sel.includes(c.dataset.k)));$('#campur').disabled=sel.length<2}
-$('#reset').onclick=()=>{sel=[];sync();$('#liq').style.cssText='';$('#liq').innerHTML='';$('#hasil').textContent='Pilih dua bahan dulu.'};
+$('#reset').onclick=()=>{sel=[];sync();$('#liq').style.cssText='';$('#liq').innerHTML='';$('#hasil').textContent='Pilih dua bahan dulu.';$('#soal').innerHTML=''};
 $('#campur').onclick=()=>{const key=[...sel].sort().join('+');
   const r=R[key]||{k:0,c:'#d6ecf7',t:'Hanya bercampur, tidak ada zat baru yang terbentuk. Perubahan fisika.'};
   const L=$('#liq');L.innerHTML='';L.style.height='70%';L.style.background=r.c;
   if(r.g)for(let i=0;i<14;i++){const s=document.createElement('span');s.className='bub';s.style.left=(Math.random()*120)+'px';s.style.animationDelay=(Math.random()*1.4)+'s';L.appendChild(s)}
   $('#hasil').innerHTML='<span class="tag '+(r.k?'K':'F')+'">'+(r.k?'Kimia':'Fisika')+'</span> '+r.t;
   if(!found.has(key)){found.add(key);addXp(5);if(r.k)foundK.add(key)}
-  $('#nUji').textContent=found.size;$('#nKim').textContent=foundK.size};
+  $('#nUji').textContent=found.size;$('#nKim').textContent=foundK.size;soal(key,r)};
+
+/* Pertanyaan percobaan */
+const QL={
+'cuka+soda':['Gelembung yang muncul adalah gas apa?',['Oksigen','Karbon dioksida','Hidrogen'],1,'Soda kue dan cuka bereaksi menghasilkan gas karbon dioksida (CO₂).'],
+'air+paku':['Mengapa paku yang direndam lama-kelamaan berkarat?',['Paku bereaksi dengan oksigen dan air','Paku larut dalam air','Paku hanya menjadi basah'],0,'Besi, oksigen, dan air membentuk karat, yaitu zat baru.'],
+'cuka+paku':['Gelembung kecil di sekitar paku menandakan…',['Wujud paku berubah','Terbentuk gas dari reaksi','Cuka menguap'],1,'Asam cuka bereaksi dengan logam dan menghasilkan gas.'],
+'air+soda':['Bagaimana mendapatkan soda kue kembali dari larutannya?',['Diuapkan airnya','Dibakar','Dibekukan lalu dibuang'],0,'Zat terlarut tertinggal saat airnya menguap.'],
+'air+gula':['Bagaimana rasa air setelah gula larut?',['Manis','Tawar','Asam'],0,'Sifat gula tetap ada karena gula tidak berubah menjadi zat lain.'],
+'air+garam':['Jika air garam dijemur di bawah matahari, apa yang tersisa?',['Garam kembali muncul','Abu','Gas'],0,'Begitulah cara petani membuat garam dari air laut.'],
+'air+minyak':['Mengapa minyak mengambang di atas air?',['Massa jenis minyak lebih kecil dari air','Minyak bereaksi dengan air','Minyak menguap'],0,'Minyak lebih ringan dan tidak larut dalam air.']};
+const DEF=['Setelah dicampur, apa yang kamu amati?',['Muncul gelembung gas','Hanya bercampur, tidak ada zat baru','Terbentuk endapan baru'],1,'Tidak ada tanda reaksi kimia, hanya bercampur.'];
+const asked=new Set();
+function soal(key,r){
+  const box=$('#soal'),q=QL[key]||DEF;
+  const steps=[{t:q[0],o:q[1],a:q[2],e:q[3]},
+    {t:'Jadi, termasuk perubahan apa percobaanmu ini?',o:['Perubahan fisika','Perubahan kimia'],a:r.k,e:r.k?'Terbentuk zat baru, maka ini perubahan kimia.':'Tidak ada zat baru yang terbentuk, maka ini perubahan fisika.'}];
+  let i=0;
+  (function tampilSoal(){
+    if(i>=steps.length){box.innerHTML='<div class="fb ok">🎉 Pertanyaan selesai! Coba campuran bahan yang lain.</div>';return}
+    const s=steps[i];
+    box.innerHTML='<h3>Pertanyaan '+(i+1)+'/2</h3><p></p><div class="chips"></div><div></div>';
+    box.querySelector('p').textContent=s.t;
+    const cs=box.querySelector('.chips'),fb=cs.nextElementSibling,bs=[];
+    s.o.forEach((o,j)=>{const b=document.createElement('button');b.className='chip';b.textContent=o;bs.push(b);
+      b.onclick=()=>{const ok=j===s.a,baru=!asked.has(key+i);
+        bs.forEach(x=>x.disabled=true);bs[s.a].style.background='#b7f0c9';if(!ok)b.style.background='#ffc0c7';
+        if(ok&&baru){asked.add(key+i);addXp(5)}
+        fb.innerHTML='<div class="fb '+(ok?'ok':'no')+'">'+(ok?(baru?'Benar! +5 poin. ':'Benar! '):'Belum tepat. ')+s.e+'</div><p><button class="btn" id="lnj">Lanjut</button></p>';
+        $('#lnj').onclick=()=>{i++;tampilSoal()}};
+      cs.appendChild(b)});
+  })()}
 
 /* Kuis */
 const Q=[
