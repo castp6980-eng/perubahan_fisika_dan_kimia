@@ -101,6 +101,18 @@ input[type=range]{accent-color:var(--teal);height:28px}
 .opts .big{font-size:1.5rem;padding:18px}
 .stats{font-family:'Baloo 2',sans-serif;font-size:1.05rem}
 #hasil{background:var(--card);border:3px dashed var(--edge);border-radius:14px;padding:10px;margin:12px 0}
+
+/* ===== Soal uraian ===== */
+nav button[data-t=uraian][aria-selected=true]{background:#ff6fa8}
+#uraian>.card,#uraianList .card{border-top:12px solid #ff6fa8}
+textarea{width:100%;border:3px solid var(--edge);border-radius:14px;background:var(--card);color:var(--ink);font:400 1rem/1.5 'Nunito',sans-serif;padding:10px;resize:vertical;margin:10px 0}
+textarea:focus-visible{outline:3px solid var(--fis);outline-offset:2px}
+details{background:var(--fisbg);border:2px solid var(--edge);border-radius:12px;padding:8px 12px;margin:10px 0}
+summary{cursor:pointer;font-weight:800}
+.ck label{display:flex;gap:10px;align-items:flex-start;margin:8px 0;font-weight:700;cursor:pointer}
+.ck input{width:22px;height:22px;accent-color:var(--teal);flex:none;margin-top:2px}
+.tt{font:800 1.6rem 'Baloo 2',sans-serif}
+.nomor{display:inline-block;background:#ff6fa8;color:#fff;border:3px solid var(--edge);border-radius:50%;width:38px;height:38px;line-height:32px;text-align:center;margin-right:8px}
 </style>
 </head>
 <body>
@@ -114,6 +126,7 @@ input[type=range]{accent-color:var(--teal);height:28px}
   <button role="tab" aria-selected="true" data-t="belajar">Pelajari</button>
   <button role="tab" aria-selected="false" data-t="lab">Laboratorium</button>
   <button role="tab" aria-selected="false" data-t="kuis">Tantangan</button>
+  <button role="tab" aria-selected="false" data-t="uraian">Presentasi</button>
 </nav>
 
 <!-- PELAJARI -->
@@ -163,6 +176,14 @@ input[type=range]{accent-color:var(--teal);height:28px}
 <section id="kuis" hidden>
   <div class="card" id="kuisBox"></div>
 </section>
+
+<!-- URAIAN / PRESENTASI -->
+<section id="uraian" hidden>
+  <div class="card"><h2>🎤 Soal uraian untuk dipresentasikan</h2>
+    <p>Kerjakan 3 soal berikut. Tulis kerangka jawabanmu, centang poin yang sudah kamu siapkan, lalu presentasikan di depan teman atau gurumu. Selesaikan semua poin satu soal untuk mendapat <b>+20 poin</b>.</p>
+    <p class="note"><b>Penilaian:</b> ketepatan konsep, penggunaan contoh dan istilah, serta cara menyampaikan dengan jelas dan percaya diri.</p></div>
+  <div id="uraianList"></div>
+</section>
 </main>
 
 <script>
@@ -172,7 +193,7 @@ let xp=0;const addXp=n=>{xp+=n;$('#xp').textContent=xp};
 /* Tab */
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected',x===b));
-  ['belajar','lab','kuis'].forEach(id=>$('#'+id).hidden=id!==b.dataset.t);
+  ['belajar','lab','kuis','uraian'].forEach(id=>$('#'+id).hidden=id!==b.dataset.t);
 });
 
 /* Tanda kimia */
@@ -297,10 +318,32 @@ function salah(t){if(st.done)return;st.done=true;st.hp--;st.streak=0;const q=st.
   document.querySelectorAll('.big').forEach(b=>b.disabled=true);$('#nx').onclick=()=>{st.i++;tampil()}}
 function akhir(){const h=st.hp>0&&st.i>=st.q.length;const r=st.poin>=220?'🏆 Detektif Master':st.poin>=140?'🕵️ Detektif Handal':'🔍 Detektif Pemula';
   $('#kuisBox').innerHTML=`<h2>${h?'Kasus selesai!':'Nyawa habis!'}</h2><p class="msg" style="font-size:1.4rem">${r}</p><p style="text-align:center">Poin kuis: <b>${st.poin}</b></p>
-  <p class="note" style="text-align:center">Baca lagi bagian Pelajari untuk memperkuat tanda-tanda perubahan kimia, lalu coba lagi.</p><p style="text-align:center"><button class="btn k" id="ulang">Main lagi</button></p>`;
-  $('#ulang').onclick=mulai}
+  <p class="note" style="text-align:center">Baca lagi bagian Pelajari untuk memperkuat tanda-tanda perubahan kimia, lalu coba lagi.</p><p style="text-align:center"><button class="btn k" id="ulang">Main lagi</button> <button class="btn" id="lanjut">Lanjut ke soal presentasi ➜</button></p>`;
+  $('#ulang').onclick=mulai;$('#lanjut').onclick=()=>goTab('uraian')}
 $('#kuisBox').innerHTML='<h2>Tantangan Detektif</h2><p>10 kasus acak, 3 nyawa, dan 20 detik tiap kasus. Jawab Fisika atau Kimia. Untuk perubahan kimia, ada soal bonus mencari tanda utamanya. Jawab cepat untuk poin lebih besar!</p><p><button class="btn k" id="go">Mulai tantangan</button></p>';
 $('#go').onclick=mulai;
+
+/* Soal uraian */
+function goTab(t){document.querySelector('nav button[data-t="'+t+'"]').click();window.scrollTo({top:0,behavior:'smooth'})}
+const U=[
+{q:'Jelaskan perbedaan perubahan fisika dan perubahan kimia, lalu berikan masing-masing 2 contoh dari kehidupan sehari-hari!',h:'Pikirkan: apakah terbentuk zat baru? Apakah bisa dikembalikan seperti semula?',c:['Perubahan fisika: tidak terbentuk zat baru, hanya bentuk, wujud, atau ukuran yang berubah','Perubahan kimia: terbentuk zat baru dengan sifat berbeda','Ada 2 contoh perubahan fisika (misalnya es mencair, gula larut)','Ada 2 contoh perubahan kimia (misalnya kertas terbakar, besi berkarat)']},
+{q:'Kamu mencampur soda kue dengan cuka dan muncul banyak gelembung. Jelaskan apa yang terjadi, tanda perubahan kimia apa yang kamu amati, dan mengapa peristiwa itu bukan perubahan fisika!',h:'Ingat gas apa yang terbentuk, dan apakah zat awalnya masih sama.',c:['Menyebutkan pengamatan: muncul gelembung dan berbuih','Menyebutkan gas karbon dioksida sebagai zat baru','Menyebutkan tanda perubahan kimia: timbul gas','Menjelaskan alasannya: zat awal berubah menjadi zat baru, bukan hanya bercampur']},
+{q:'Rancanglah percobaan sederhana untuk membuktikan bahwa buah apel yang dikupas lalu didiamkan mengalami perubahan kimia! Sebutkan alat dan bahan, langkah kerja, serta hasil yang kamu harapkan.',h:'Tentukan apa yang akan diamati (warna? bau?) dan berapa lama pengamatan dilakukan.',c:['Menyebutkan alat dan bahan (apel, pisau, piring, dan lainnya)','Menuliskan langkah kerja secara berurutan','Menyebutkan yang diamati: warna daging apel menjadi cokelat','Menyimpulkan: terbentuk zat baru, jadi ini perubahan kimia']}];
+U.forEach((u,n)=>{
+  const d=document.createElement('div');d.className='card';
+  d.innerHTML='<h3><span class="nomor">'+(n+1)+'</span>Soal '+(n+1)+'</h3><p class="uq" style="font-weight:700;margin-top:10px"></p><details><summary>💡 Petunjuk</summary><p class="note uh"></p></details><label class="note" for="ta'+n+'">Kerangka jawabanmu:</label><textarea id="ta'+n+'" rows="5" placeholder="Tulis poin-poin yang akan kamu presentasikan..."></textarea><p class="note"><b>Checklist:</b> centang poin yang sudah kamu siapkan</p><div class="ck"></div><div class="stats" style="align-items:center;gap:8px;flex-wrap:wrap"><button class="btn k tm">⏱ Mulai presentasi</button><span class="tt">03:00</span></div><div class="msg"></div>';
+  d.querySelector('.uq').textContent=u.q;d.querySelector('.uh').textContent=u.h;
+  const ck=d.querySelector('.ck'),ms=d.querySelector('.msg');let got=false;
+  u.c.forEach(t=>{const l=document.createElement('label'),i=document.createElement('input');i.type='checkbox';
+    l.append(i,document.createTextNode(t));ck.appendChild(l);
+    i.onchange=()=>{const all=[...ck.querySelectorAll('input')].every(x=>x.checked);
+      if(all&&!got){got=true;addXp(20);ms.textContent='🎉 Semua poin siap! +20 poin. Saatnya presentasi!'}
+      else if(!all&&!got)ms.textContent=ck.querySelectorAll('input:checked').length+'/'+u.c.length+' poin siap'}});
+  const b=d.querySelector('.tm'),tt=d.querySelector('.tt');let iv=null,sec=180;
+  const fmt=()=>{tt.textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')};
+  b.onclick=()=>{if(iv){clearInterval(iv);iv=null;sec=180;fmt();b.textContent='⏱ Mulai presentasi';return}
+    b.textContent='⏹ Berhenti';iv=setInterval(()=>{sec--;fmt();if(sec<=0){clearInterval(iv);iv=null;sec=180;b.textContent='⏱ Mulai presentasi';tt.textContent='Waktu habis!'}},1000)};
+  $('#uraianList').appendChild(d)});
 </script>
 </body>
 </html>
